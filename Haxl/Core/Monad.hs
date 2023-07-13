@@ -106,6 +106,7 @@ import Control.Arrow (left)
 import Control.Concurrent.STM
 import qualified Data.Text as Text
 import qualified Control.Monad.Catch as Catch
+import qualified Control.Monad.Fail as Fail
 import Control.Exception (Exception(..), SomeException, throwIO)
 import Control.Monad
 import qualified Control.Exception as Exception
@@ -551,11 +552,13 @@ instance Monad (GenHaxl u) where
       Throw e -> return (Throw e)
       Blocked ivar cont -> trace_ ">>= Blocked" $
         return (Blocked ivar (cont :>>= k))
-  fail msg = GenHaxl $ \_env ->
-    return $ Throw $ toException $ MonadFail $ Text.pack msg
 
   -- We really want the Applicative version of >>
   (>>) = (*>)
+
+instance Fail.MonadFail (GenHaxl u) where
+  fail msg = GenHaxl $ \_env ->
+    return $ Throw $ toException $ MonadFail $ Text.pack msg
 
 instance Functor (GenHaxl u) where
   fmap f (GenHaxl m) = GenHaxl $ \env -> do

@@ -22,6 +22,7 @@ module Haxl.Core.StateStore
   , stateEmpty
   ) where
 
+import Data.Kind (Type)
 import Data.Map (Map)
 import qualified Data.Map.Strict as Map
 #if __GLASGOW_HASKELL__ < 804
@@ -35,9 +36,9 @@ import Unsafe.Coerce
 -- 'StateStore'.
 --
 #if __GLASGOW_HASKELL__ >= 708
-class Typeable f => StateKey (f :: * -> *) where
+class Typeable f => StateKey (f :: Type -> Type) where
 #else
-class Typeable1 f => StateKey (f :: * -> *) where
+class Typeable1 f => StateKey (f :: Type -> Type) where
 #endif
   data State f
 

@@ -53,6 +53,7 @@ import Control.Applicative
 #endif
 import Control.Exception
 import Data.Hashable
+import Data.Kind (Type)
 import Data.Text (Text)
 #if __GLASGOW_HASKELL__ >= 802
 import Data.Typeable
@@ -98,7 +99,7 @@ class (DataSourceName req, StateKey req, ShowP req) => DataSource u req where
   schedulerHint :: u -> SchedulerHint req
   schedulerHint _ = TryToBatch
 
-class DataSourceName (req :: * -> *) where
+class DataSourceName (req :: Type -> Type) where
   -- | The name of this 'DataSource', used in tracing and stats. Must
   -- take a dummy request.
   dataSourceName :: Proxy req -> Text
@@ -119,7 +120,7 @@ type Request req a =
   )
 
 -- | Hints to the scheduler about this data source
-data SchedulerHint (req :: * -> *)
+data SchedulerHint (req :: Type -> Type)
   = TryToBatch
     -- ^ Hold data-source requests while we execute as much as we can, so
     -- that we can hopefully collect more requests to batch.

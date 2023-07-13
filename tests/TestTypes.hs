@@ -19,7 +19,8 @@ import Data.Aeson
 import Data.Binary (Binary)
 import Data.Text (Text)
 import qualified Data.Text as Text
-import qualified Data.HashMap.Strict as HashMap
+import qualified Data.Aeson.KeyMap as KeyMap
+import qualified Data.Aeson.Key as Key
 import Data.Hashable
 import Data.Typeable
 
@@ -30,7 +31,7 @@ type Haxl a = GenHaxl UserEnv a
 
 lookupInput :: FromJSON a => Text -> Haxl a
 lookupInput field = do
-  mb_val <- env (HashMap.lookup field . userEnv)
+  mb_val <- env (KeyMap.lookup (Key.fromText field) . userEnv)
   case mb_val of
     Nothing ->
       throw (NotFound (Text.concat ["field ", field, " was not found."]))

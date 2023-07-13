@@ -37,7 +37,7 @@ import Haxl.Core.Stats
 
 -- | Runs a 'Haxl' computation in the given 'Env'.
 runHaxl :: forall u a. Env u -> GenHaxl u a -> IO a
-runHaxl env@Env{..} haxl = do
+runHaxl env@Env{} haxl = do
 
   result@(IVar resultRef) <- newIVar -- where to put the final result
   let

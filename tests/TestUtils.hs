@@ -20,7 +20,7 @@ import MockTAO
 import Data.IORef
 import Data.Aeson
 import Test.HUnit
-import qualified Data.HashMap.Strict as HashMap
+import qualified Data.Aeson.KeyMap as KeyMap
 
 import Haxl.Core
 
@@ -28,7 +28,7 @@ import Prelude()
 import Haxl.Prelude
 
 testinput :: Object
-testinput = HashMap.fromList [
+testinput = KeyMap.fromList [
   "A" .= (1 :: Int),
   "B" .= (2 :: Int),
   "C" .= (3 :: Int),

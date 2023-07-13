@@ -81,6 +81,7 @@ import Data.Aeson
 import Data.Binary (Binary)
 import Data.Typeable
 import Data.Text (Text)
+import Prelude hiding (MonadFail (..))
 
 import Haxl.Core.Util
 import GHC.Stack

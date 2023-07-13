@@ -36,7 +36,7 @@ infixr 4 `pOr`
 -- the other argument may have produced if it had been allowed to
 -- complete.
 pOr :: GenHaxl u Bool -> GenHaxl u Bool -> GenHaxl u Bool
-GenHaxl a `pOr` GenHaxl b = GenHaxl $ \env@Env{..} -> do
+GenHaxl a `pOr` GenHaxl b = GenHaxl $ \env@Env{} -> do
   let !senv = speculate env
   ra <- a senv
   case ra of
@@ -67,7 +67,7 @@ GenHaxl a `pOr` GenHaxl b = GenHaxl $ \env@Env{..} -> do
 -- the other argument may have produced if it had been allowed to
 -- complete.
 pAnd :: GenHaxl u Bool -> GenHaxl u Bool -> GenHaxl u Bool
-GenHaxl a `pAnd` GenHaxl b = GenHaxl $ \env@Env{..} -> do
+GenHaxl a `pAnd` GenHaxl b = GenHaxl $ \env@Env{} -> do
   let !senv = speculate env
   ra <- a senv
   case ra of

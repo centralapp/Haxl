@@ -23,6 +23,7 @@ import Control.Exception (evaluate)
 import Data.Aeson
 import Data.IORef
 import qualified Data.HashMap.Strict as HashMap
+import qualified Data.Aeson.KeyMap as KeyMap
 import qualified Data.HashSet as HashSet
 
 import TestUtils
@@ -40,7 +41,7 @@ collectsdata = do
             withLabel "foo" $ do
               u <- env userEnv
               -- do some non-trivial work that can't be lifted out
-              case fromJSON <$> HashMap.lookup "A" u of
+              case fromJSON <$> KeyMap.lookup "A" u of
                 Just (Success n) | sum [n .. 1000::Integer] > 0 -> return 5
                 _otherwise -> return (4::Int)
   profData <- profile <$> readIORef (profRef e)

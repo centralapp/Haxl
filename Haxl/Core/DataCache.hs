@@ -6,6 +6,7 @@
 
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE ExistentialQuantification #-}
+{-# LANGUAGE MonoLocalBinds #-}
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
@@ -55,7 +56,7 @@ newtype DataCache res = DataCache (HashMap TypeRep (SubCache res))
 --
 data SubCache res =
   forall req a . (Hashable (req a), Eq (req a), Typeable (req a)) =>
-       SubCache (req a -> String) (a -> String) ! (HashMap (req a) (res a))
+       SubCache (req a -> String) (a -> String) !(HashMap (req a) (res a))
        -- NB. the inner HashMap is strict, to avoid building up
        -- a chain of thunks during repeated insertions.
 
