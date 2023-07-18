@@ -44,7 +44,7 @@ library
 
   build-depends:
     aeson,
-    base,
+    base >= 4.7 && < 5,
     binary,
     bytestring,
     containers,
@@ -57,7 +57,7 @@ library
     -- pretty == 1.1.*,
     pretty,
     -- text 1.2.1.0 required for instance Binary Text
-    text >= 1.2.1.0 && < 1.3,
+    text >= 1.2.1.0,
     time,
     stm,
     transformers,
@@ -106,7 +106,7 @@ test-suite test
 
   build-depends:
     aeson,
-    HUnit >= 1.2 && < 1.7,
+    HUnit,
     base >= 4.7 && < 5,
     binary,
     bytestring,
