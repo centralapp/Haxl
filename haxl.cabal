@@ -58,11 +58,11 @@ library
     hashtables >= 1.2.3.1,
     pretty == 1.1.*,
     text,
-    time >= 1.4 && < 1.12,
+    time,
     stm >= 2.4 && < 2.6,
     transformers,
     unordered-containers == 0.2.*,
-    vector >= 0.10 && <0.13
+    vector 
 
   exposed-modules:
     Haxl.Core,
